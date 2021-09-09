@@ -1,0 +1,170 @@
+{
+	"name": "supos-sync",
+	"displayName": "sve companion",
+	"description": "A supos-vscode-editor companion extension",
+	"icon": "images/logo.png",
+	"version": "0.1.9",
+	"publisher": "xmd",
+	"engines": {
+		"vscode": "^1.58.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"workspaceContains:**/.suposrc.json"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "supos-sync.debug",
+				"title": "debug service",
+				"category": "Supos Sync",
+				"icon": {
+					"light": "images/debug.svg",
+					"dark": "images/debug.svg"
+				}
+			},
+			{
+				"command": "supos-sync.download",
+				"title": "pull service",
+				"category": "Supos Sync",
+				"icon": {
+					"light": "images/arrow-down.svg",
+					"dark": "images/arrow-down.svg"
+				}
+			},
+			{
+				"command": "supos-sync.upload",
+				"title": "push service",
+				"category": "Supos Sync",
+				"icon": {
+					"light": "images/arrow-up.svg",
+					"dark": "images/arrow-up.svg"
+				}
+			},
+			{
+				"command": "supos-sync.download-all",
+				"title": "pull all service",
+				"category": "Supos Sync",
+				"icon": {
+					"light": "images/arrow-down-all.svg",
+					"dark": "images/arrow-down-all.svg"
+				}
+			},
+			{
+				"command": "supos-sync.upload-all",
+				"title": "push all service",
+				"category": "Supos Sync",
+				"icon": {
+					"light": "images/arrow-up-all.svg",
+					"dark": "images/arrow-up-all.svg"
+				}
+			}
+		],
+		"configuration": [
+			{
+				"title": "Shortcut Menu Bar configuration",
+				"properties": {
+					"supos-sync.debug": {
+						"title": "Debug a supos service",
+						"type": "boolean",
+						"default": true,
+						"description": "show icon for 'Debug service'"
+					},
+					"supos-sync.download": {
+						"title": "Pull an existing service from supos",
+						"type": "boolean",
+						"default": true,
+						"description": "show icon for 'Pull a service'"
+					},
+					"supos-sync.upload": {
+						"title": "Push current service to supos",
+						"type": "boolean",
+						"default": true,
+						"description": "show icon for 'Push a service'"
+					},
+					"supos-sync.download-all": {
+						"title": "Pull all existing service from supos",
+						"type": "boolean",
+						"default": true,
+						"description": "show icon for 'Pull all service'"
+					},
+					"supos-sync.upload-all": {
+						"title": "Push all service to supos",
+						"type": "boolean",
+						"default": true,
+						"description": "show icon for 'Push all service'"
+					}
+				}
+			}
+		],
+		"menus": {
+			"editor/title": [
+				{
+					"when": "config.supos-sync.debug && supos-sync.activated",
+					"command": "supos-sync.debug",
+					"group": "navigation@1"
+				},
+				{
+					"when": "config.supos-sync.download && supos-sync.activated",
+					"command": "supos-sync.download",
+					"group": "navigation@2"
+				},
+				{
+					"when": "config.supos-sync.upload && supos-sync.activated",
+					"command": "supos-sync.upload",
+					"group": "navigation@3"
+				},
+				{
+					"when": "config.supos-sync.download-all && supos-sync.activated",
+					"command": "supos-sync.download-all",
+					"group": "navigation@4"
+				},
+				{
+					"when": "config.supos-sync.upload-all && supos-sync.activated",
+					"command": "supos-sync.upload-all",
+					"group": "navigation@5"
+				}
+			],
+			"explorer/context": [
+				{
+					"when": "resourcePath =~ /.*src\/services\/.*\\.js$/",
+					"command": "supos-sync.upload",
+					"group": "navigation@1"
+				},
+				{
+					"when": "resourcePath =~ /.*src\/services\/.*\\.js$/",
+					"command": "supos-sync.download",
+					"group": "navigation@1"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/http-proxy": "^1.17.7",
+		"@types/mocha": "^8.2.2",
+		"@types/node": "14.x",
+		"@types/vscode": "^1.58.0",
+		"@typescript-eslint/eslint-plugin": "^4.26.0",
+		"@typescript-eslint/parser": "^4.26.0",
+		"eslint": "^7.27.0",
+		"glob": "^7.1.7",
+		"mocha": "^8.4.0",
+		"typescript": "^4.3.2",
+		"vscode-test": "^1.5.2"
+	},
+	"dependencies": {
+		"axios": "^0.21.1"
+	}
+}
